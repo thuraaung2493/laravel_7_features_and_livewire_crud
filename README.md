@@ -1,6 +1,10 @@
 ## About Laravel7 New Features & Livewire CRUD
 
-# New Featues-
+### To run poject
+- composer install
+- php artisan serve
+
+### New Featues
 
 - Custom Eloquent Casts
 - Blade Component Tags & Improvements
@@ -12,4 +16,4 @@
 - Stub Customization
 - Artisan test Command
 
-Ref From Laravel Documentation & Livewire Documentation
+Reference from [Laravel Documentation](https://laravel.com/docs/7.x) & [Livewire Documentation](https://laravel-livewire.com/docs/quickstart/)
