@@ -13,9 +13,19 @@ class MfService
         $response = Http::withHeaders([
             'app-id' => config('mf.app_id'),
             'secret-key' => config('mf.secret_key'),
-        ])->get(config('mf.banks_url'))->json();
+        ])->get(config('mf.banks_url'));
 
-        return $response;
+        if ($response->clientError()) {
+            return ['message' => 'Client Error', 'statusCode' => $response->status()];
+        }
+
+        if ($response->serverError()) {
+            return ['message' => 'Server Error', 'statusCode' => $response->status()];
+        }
+
+        if ($response->successful()) {
+            return $response->json();
+        }
     }
 
     public function login($phone, $password)
@@ -26,11 +36,21 @@ class MfService
         ])->asForm()->post(config('mf.login_url'), [
            'phone_number' => $phone,
            'password' => $password,
-        ])->json();
+        ]);
 
         $this->token = $response['data']['token'];
 
-        return $response;
+        if ($response->clientError()) {
+            return ['message' => 'Client Error', 'statusCode' => $response->status()];
+        }
+
+        if ($response->serverError()) {
+            return ['message' => 'Server Error', 'statusCode' => $response->status()];
+        }
+
+        if ($response->successful()) {
+            return $response->json();
+        }
     }
 
     public function latestLoan($customerId)
@@ -42,10 +62,19 @@ class MfService
                             'secret-key' => config('mf.secret_key'),
                             'customer-id' => $customerId,
                         ])
-                        ->get(config('mf.latest_loan_url') . $customerId)
-                        ->json();
+                        ->get(config('mf.latest_loan_url') . $customerId);
 
-        return $response;
+        if ($response->clientError()) {
+            return ['message' => 'Client Error', 'statusCode' => $response->status()];
+        }
+
+        if ($response->serverError()) {
+            return ['message' => 'Server Error', 'statusCode' => $response->status()];
+        }
+
+        if ($response->successful()) {
+            return $response->json();
+        }
     }
 
     public function imageUpload()
@@ -57,6 +86,16 @@ class MfService
             'image', file_get_contents(config('mf.test_image')), 'pokemon.png'
         )->post(config('mf.image_upload_url'))->json();
 
-        return $response;
+        if ($response->clientError()) {
+            return ['message' => 'Client Error', 'statusCode' => $response->status()];
+        }
+
+        if ($response->serverError()) {
+            return ['message' => 'Server Error', 'statusCode' => $response->status()];
+        }
+
+        if ($response->successful()) {
+            return $response->json();
+        }
     }
 }

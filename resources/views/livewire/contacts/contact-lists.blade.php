@@ -9,7 +9,7 @@
             </select>
         </div>
         <div class="col">
-            <input class="form-control" type="text" wire:model.debounce.500ms="search" placeholder="search...">
+            <input class="form-control" type="text" wire:model="search" placeholder="search...">
         </div>
     </div>
 
@@ -42,21 +42,22 @@
             </thead>
 
             <tbody>
-                @forelse($contacts as $contact)
+                @foreach($contacts as $contact)
                     <tr>
-                        <td>{{$contact->id}}</td>
-                        <td>{{$contact->name}}</td>
-                        <td>{{$contact->phone}}</td>
+                        <td>{{ $contact->id }}</td>
+                        <td>{{ $contact->name }}</td>
+                        <td>{{ $contact->phone }}</td>
                         <td>
                             <button wire:click="$emit('edit', {{ $contact->id }})" class="btn btn-xs btn-warning">Edit</button>
                             <button wire:click="$emit('destroy', {{ $contact->id }})" class="btn btn-xs btn-danger">Del</button>
                         </td>
                     </tr>
-                @empty
+                {{-- @empty
                     <tr>
                         <td colspan="4" class="text-center">No data!</td>
-                    </tr>
-                @endforelse
+                    </tr> --}}
+                {{-- @endforelse --}}
+                @endforeach
             </tbody>
         </table>
     </div>

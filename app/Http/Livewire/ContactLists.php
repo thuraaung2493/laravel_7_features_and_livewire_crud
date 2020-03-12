@@ -10,7 +10,6 @@ class ContactLists extends Component
 {
     use WithPagination;
 
-    public $data;
     public $search;
     public $perPage = 10;
     public $sortAsc = true;
@@ -37,6 +36,11 @@ class ContactLists extends Component
         }
 
         $this->sortField = $field;
+    }
+
+    public function updatingSearch()
+    {
+        $this->gotoPage(1);
     }
 
     public function render()
