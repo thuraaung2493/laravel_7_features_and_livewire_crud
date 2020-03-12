@@ -3,6 +3,7 @@
 ### To run poject
 - composer install
 - php artisan serve
+- php artisan db:seed
 
 ### New Featues
 
